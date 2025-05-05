@@ -1,0 +1,66 @@
+{% load widget_tweaks %}
+{% block content %}
+<div class="container-fluid d-flex align-items-center justify-content-center" style="min-height: 100vh; background: linear-gradient(135deg, #66ea7c, #15350b);">
+    <div class="card shadow-lg p-4" style="width: 100%; max-width: 400px; border-radius: 15px;">
+        <h3 class="text-center mb-4 text-white">🔐 Create Your Account</h3>
+        <form method="post" novalidate>
+            {% csrf_token %}
+            
+            {% for field in form %}
+                <div class="mb-3">
+                    {{ field.label_tag }}
+                    {{ field|add_class:"form-control" }}
+                    {% if field.errors %}
+                        <div class="text-danger small">{{ field.errors|striptags }}</div>
+                    {% endif %}
+                </div>
+            {% endfor %}
+
+            <button class="btn btn-primary w-100 py-2" type="submit" style="border-radius: 25px; transition: 0.3s;">Register</button>
+        </form>
+
+        <div class="mt-3 text-center">
+            <span class="text-white">Already have an account?</span>
+            <a href="{% url 'login' %}" class="text-decoration-none text-white fw-bold">Login</a>
+        </div>
+    </div>
+</div>
+
+<!-- Bootstrap CSS -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" />
+
+<style>
+    .form-control {
+        border-radius: 25px;
+        padding: 15px;
+        transition: border 0.3s ease;
+    }
+
+    .form-control:focus {
+        border: 2px solid #66ea7c;
+        box-shadow: 0 0 5px rgba(102, 234, 124, 0.5);
+    }
+
+    .btn-primary {
+        background-color: #66ea7c;
+        border-color: #66ea7c;
+    }
+
+    .btn-primary:hover {
+        background-color: #15350b;
+        border-color: #15350b;
+        transition: 0.3s ease;
+    }
+
+    .card {
+        background: rgba(255, 255, 255, 0.1);
+        backdrop-filter: blur(10px);
+        border-radius: 15px;
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+    }
+
+    .card h3 {
+        font-weight: 700;
+    }
+</style>
+{% endblock %}
